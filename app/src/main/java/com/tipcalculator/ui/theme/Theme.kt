@@ -1,4 +1,4 @@
-package com.example.tipcalculator.ui.theme
+package com.tipcalculator.ui.theme
 
 import android.app.Activity
 import android.os.Build
