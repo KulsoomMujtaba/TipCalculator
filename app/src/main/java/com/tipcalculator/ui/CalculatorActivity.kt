@@ -1,4 +1,4 @@
-package com.tipcalculator
+package com.tipcalculator.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -32,34 +32,43 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TipCalculatorTheme {
-                var amount by remember {
-                    mutableStateOf("")
-                }
-                var tip by remember {
-                    mutableStateOf("")
-                }
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Column(
-                        verticalArrangement= Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxSize()) {
-                        InputField(amount,
-                            onValueChange = { input-> amount = input },
-                            placeholderText = "Enter an Amount")
-                        Spacer(modifier = Modifier.height(16.dp))
-                        InputField(tip,
-                            onValueChange = { input-> tip = input },
-                            placeholderText = "Enter tip percentage")
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(onClick = {}) {
-                            Text(text = "Calculate Tip")
-                        }
-                    }
-                }
+                Content()
+            }
+        }
+    }
+}
+
+@Composable
+private fun Content() {
+    var amount by remember {
+        mutableStateOf("")
+    }
+    var tip by remember {
+        mutableStateOf("")
+    }
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            InputField(
+                amount,
+                onValueChange = { input -> amount = input },
+                placeholderText = "Enter an Amount"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            InputField(
+                tip,
+                onValueChange = { input -> tip = input },
+                placeholderText = "Enter tip percentage"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = {}) {
+                Text(text = "Calculate Tip")
             }
         }
     }
@@ -67,9 +76,11 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun InputField(value: String,
-                       onValueChange: (String) -> Unit,
-                       placeholderText: String, modifier: Modifier = Modifier) {
+private fun InputField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    placeholderText: String, modifier: Modifier = Modifier
+) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
@@ -77,12 +88,14 @@ private fun InputField(value: String,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Number
         ),
-        modifier = modifier)
+        modifier = modifier
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     TipCalculatorTheme {
+        Content()
     }
 }
