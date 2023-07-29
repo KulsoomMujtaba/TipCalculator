@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.tipcalculator'
+    namespace 'com.tipcalculator'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.tipcalculator"
+        applicationId "com.tipcalculator"
         minSdk 24
         targetSdk 33
         versionCode 1

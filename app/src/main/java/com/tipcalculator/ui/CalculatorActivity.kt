@@ -22,9 +22,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tipcalculator.R
 import com.tipcalculator.ui.theme.TipCalculatorTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,17 +60,17 @@ private fun Content() {
             InputField(
                 amount,
                 onValueChange = { input -> amount = input },
-                placeholderText = "Enter an Amount"
+                placeholderText = stringResource(id = R.string.placeholder_amount)
             )
             Spacer(modifier = Modifier.height(16.dp))
             InputField(
                 tip,
                 onValueChange = { input -> tip = input },
-                placeholderText = "Enter tip percentage"
+                placeholderText = stringResource(id = R.string.placeholder_tip)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = {}) {
-                Text(text = "Calculate Tip")
+                Text(text = stringResource(id = R.string.calculate_tip))
             }
         }
     }
