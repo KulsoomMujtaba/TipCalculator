@@ -10,10 +10,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -33,6 +33,7 @@ import com.tipcalculator.R
 import com.tipcalculator.ui.CalculatorActivityInteraction.CalculateButtonClicked
 import com.tipcalculator.ui.theme.TipCalculatorTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -54,9 +55,6 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun Content() {
         var amount by remember {
-            mutableStateOf("")
-        }
-        var percentage by remember {
             mutableStateOf("")
         }
 
@@ -83,25 +81,42 @@ class MainActivity : ComponentActivity() {
                     placeholderText = stringResource(id = R.string.placeholder_amount)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                InputField(
-                    percentage,
-                    onValueChange = { input -> percentage = input },
-                    placeholderText = stringResource(id = R.string.placeholder_tip)
-                )
+                PercentageSlider(amount)
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = {
-                    viewModel.onInteraction(
-                        CalculateButtonClicked(
-                            amount.toDouble(),
-                            percentage.toInt()
-                        )
-                    )
-                }) {
-                    Text(text = stringResource(id = R.string.calculate_tip))
-                }
             }
         }
     }
+
+    @Composable
+    private fun PercentageSlider(
+        amount: String
+    ) {
+        var sliderValue by remember {
+            mutableStateOf(0f)
+        }
+
+        Slider(
+            value = sliderValue,
+            onValueChange = {
+                sliderValue = it.roundToInt().toFloat()
+                viewModel.onInteraction(
+                    CalculateButtonClicked(
+                        convertToDouble(amount),
+                        sliderValue.toInt()
+                    )
+                )
+            },
+            valueRange = 0f..100f,
+        )
+
+        Text(text = sliderValue.toString())
+    }
+
+    private fun convertToDouble(amount: String): Double =
+        if (amount.isNotBlank()) {
+            amount.toDouble()
+        } else
+            0.0
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
