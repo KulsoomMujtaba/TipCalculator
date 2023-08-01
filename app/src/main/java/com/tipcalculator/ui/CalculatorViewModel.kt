@@ -19,7 +19,14 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun calculateTip(amount: Double, tip: Int) {
-        _tipMutableStateFlow.value = amount * tip/100
+    private fun calculateTip(amount: String, tip: Float) {
+        _tipMutableStateFlow.value = convertToDouble(amount) * tip/100
     }
+
+    private fun convertToDouble(amount: String): Double =
+        if (amount.isNotBlank()) {
+            amount.toDouble()
+        } else
+            0.0
+
 }

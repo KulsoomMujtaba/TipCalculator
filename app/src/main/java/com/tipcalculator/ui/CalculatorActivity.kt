@@ -101,8 +101,8 @@ class MainActivity : ComponentActivity() {
                 sliderValue = it.roundToInt().toFloat()
                 viewModel.onInteraction(
                     CalculateButtonClicked(
-                        convertToDouble(amount),
-                        sliderValue.toInt()
+                        amount,
+                        sliderValue
                     )
                 )
             },
@@ -111,12 +111,6 @@ class MainActivity : ComponentActivity() {
 
         Text(text = sliderValue.toString())
     }
-
-    private fun convertToDouble(amount: String): Double =
-        if (amount.isNotBlank()) {
-            amount.toDouble()
-        } else
-            0.0
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
