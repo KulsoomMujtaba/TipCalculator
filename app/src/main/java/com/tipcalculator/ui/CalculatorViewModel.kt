@@ -1,7 +1,7 @@
 package com.tipcalculator.ui
 
 import androidx.lifecycle.ViewModel
-import com.tipcalculator.ui.CalculatorActivityInteraction.CalculateButtonClicked
+import com.tipcalculator.ui.CalculatorActivityInteraction.TipCalculationInputsUpdated
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +15,7 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
 
     fun onInteraction(interaction: CalculatorActivityInteraction) {
         when (interaction) {
-            is CalculateButtonClicked -> calculateTip(interaction.amount, interaction.percentage)
+            is TipCalculationInputsUpdated -> calculateTip(interaction.amount, interaction.percentage)
         }
     }
 

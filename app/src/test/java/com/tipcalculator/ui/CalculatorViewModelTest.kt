@@ -1,6 +1,6 @@
 package com.tipcalculator.ui
 
-import com.tipcalculator.ui.CalculatorActivityInteraction.CalculateButtonClicked
+import com.tipcalculator.ui.CalculatorActivityInteraction.TipCalculationInputsUpdated
 import io.mockk.MockKAnnotations
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -19,28 +19,28 @@ internal class CalculatorViewModelTest {
 
     @Test
     fun `calculates tip and updates state flow value when CalculateButtonClicked interaction received`() {
-        subject.onInteraction(CalculateButtonClicked("500.0", 20f))
+        subject.onInteraction(TipCalculationInputsUpdated("500.0", 20f))
 
         assertEquals(100.0, subject.tipMutableStateFlow.value, 0.00001)
     }
 
     @Test
     fun `calculates tip with decimal places and updates state flow value when CalculateButtonClicked interaction received`() {
-        subject.onInteraction(CalculateButtonClicked("5239.10", 19f))
+        subject.onInteraction(TipCalculationInputsUpdated("5239.10", 19f))
 
         assertEquals(995.429, subject.tipMutableStateFlow.value, 0.00001)
     }
 
     @Test
     fun `returns 0 when amount is empty when CalculateButtonClicked interaction received`() {
-        subject.onInteraction(CalculateButtonClicked("", 19f))
+        subject.onInteraction(TipCalculationInputsUpdated("", 19f))
 
         assertEquals(0.0, subject.tipMutableStateFlow.value, 0.00001)
     }
 
     @Test
     fun `returns 0 when amount is blank when CalculateButtonClicked interaction received`() {
-        subject.onInteraction(CalculateButtonClicked("  ", 10f))
+        subject.onInteraction(TipCalculationInputsUpdated("  ", 10f))
 
         assertEquals(0.0, subject.tipMutableStateFlow.value, 0.00001)
     }

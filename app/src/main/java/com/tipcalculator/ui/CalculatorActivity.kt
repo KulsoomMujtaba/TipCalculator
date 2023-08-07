@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tipcalculator.R
-import com.tipcalculator.ui.CalculatorActivityInteraction.CalculateButtonClicked
+import com.tipcalculator.ui.CalculatorActivityInteraction.TipCalculationInputsUpdated
 import com.tipcalculator.ui.theme.TipCalculatorTheme
 import com.tipcalculator.ui.theme.TipCalculatorTypography
 import dagger.hilt.android.AndroidEntryPoint
@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
         sliderValue: MutableState<Float>
     ) {
         viewModel.onInteraction(
-            CalculateButtonClicked(
+            TipCalculationInputsUpdated(
                 amount,
                 sliderValue.value
             )
