@@ -2,5 +2,6 @@
     <string name="app_name">TipCalculator</string>
     <string name="placeholder_tip">Enter a tip percentage</string>
     <string name="placeholder_amount">Enter an amount</string>
-    <string name="calculate_tip">Calculate Tip</string>
+    <string name="calculated_tip">Calculated Tip</string>
+    <string name="amount">Amount</string>
 </resources>

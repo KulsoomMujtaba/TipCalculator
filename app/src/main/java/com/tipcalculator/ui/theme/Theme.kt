@@ -64,7 +64,7 @@ fun TipCalculatorTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = TipCalculatorTypography,
         content = content
     )
 }
