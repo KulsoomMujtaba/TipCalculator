@@ -6,16 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -27,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -46,16 +43,21 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         setContent {
-            TipCalculatorTheme {
-                Content()
+            val darkMode = remember { mutableStateOf(false) }
+
+            TipCalculatorTheme(
+                darkTheme = darkMode.value
+            ) {
+                Content(darkMode)
             }
         }
 
     }
 
     @Composable
-    private fun Content() {
+    private fun Content(darkMode: MutableState<Boolean>) {
         var amount by remember {
             mutableStateOf("")
         }
@@ -107,7 +109,10 @@ class MainActivity : ComponentActivity() {
                     sliderValue.value = it.roundToInt().toFloat()
                     initiateCalculateTip(amount, sliderValue)
                 }
-                Spacer(modifier = Modifier.height(16.dp))
+
+                Spacer(modifier = Modifier.height(82.dp))
+
+                LabeledSwitchButton(darkMode = darkMode, label = stringResource(id = R.string.dark_mode))
             }
         }
     }
@@ -124,11 +129,24 @@ class MainActivity : ComponentActivity() {
         )
     }
 
+    @Composable
+    fun LabeledSwitchButton(
+        darkMode: MutableState<Boolean>,
+        label: String,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(label, style = TipCalculatorTypography.labelSmall,
+            )
+            Switch(checked = darkMode.value, onCheckedChange = { darkMode.value = it })
+        }
+    }
+
     @Preview(showBackground = true)
     @Composable
     fun GreetingPreview() {
-        TipCalculatorTheme {
-            Content()
-        }
+
     }
 }

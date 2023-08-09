@@ -1,6 +1,7 @@
 package com.tipcalculator.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -41,6 +42,12 @@ val TipCalculatorTypography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 32.sp,
         lineHeight = 48.sp,
+        letterSpacing = 0.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = MontserratFontFamily,
+        fontSize = 16.sp,
+        lineHeight = 18.sp,
         letterSpacing = 0.sp
     )
 )
