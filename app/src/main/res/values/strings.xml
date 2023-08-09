@@ -4,4 +4,5 @@
     <string name="placeholder_amount">Enter an amount</string>
     <string name="calculated_tip">Calculated Tip</string>
     <string name="amount">Amount</string>
+    <string name="percentage">%</string>
 </resources>

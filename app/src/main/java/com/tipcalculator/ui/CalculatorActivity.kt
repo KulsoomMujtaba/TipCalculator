@@ -125,7 +125,7 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier.padding(horizontal = 32.dp)
         )
 
-        Text(text = sliderValue.value.toString())
+        Text(text = sliderValue.value.toString() + stringResource(id = R.string.percentage))
     }
 
     private fun initiateCalculateTip(
