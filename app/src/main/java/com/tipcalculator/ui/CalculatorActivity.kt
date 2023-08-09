@@ -54,7 +54,6 @@ class MainActivity : ComponentActivity() {
 
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun Content() {
         var amount by remember {
@@ -104,28 +103,13 @@ class MainActivity : ComponentActivity() {
                     placeholderText = stringResource(id = R.string.placeholder_amount)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                PercentageSlider(amount, sliderValue)
+                PercentageSlider(sliderValue) {
+                    sliderValue.value = it.roundToInt().toFloat()
+                    initiateCalculateTip(amount, sliderValue)
+                }
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
-    }
-
-    @Composable
-    private fun PercentageSlider(
-        amount: String,
-        sliderValue: MutableState<Float>
-    ) {
-        Slider(
-            value = sliderValue.value,
-            onValueChange = {
-                sliderValue.value = it.roundToInt().toFloat()
-                initiateCalculateTip(amount, sliderValue)
-            },
-            valueRange = 0f..100f,
-            modifier = Modifier.padding(horizontal = 32.dp)
-        )
-
-        Text(text = sliderValue.value.toString() + stringResource(id = R.string.percentage))
     }
 
     private fun initiateCalculateTip(
@@ -137,26 +121,6 @@ class MainActivity : ComponentActivity() {
                 amount,
                 sliderValue.value
             )
-        )
-    }
-
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    private fun InputField(
-        value: String,
-        onValueChange: (String) -> Unit,
-        labelText: String,
-        placeholderText: String, modifier: Modifier = Modifier
-    ) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            label = { Text(text = labelText) },
-            placeholder = { Text(text = placeholderText) },
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Number
-            ),
-            modifier = modifier
         )
     }
 
